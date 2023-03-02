@@ -25,7 +25,7 @@ const sumPopulationByNode = async (dbClient) => {
     }
   }, 0);
 
-  return `\n[NODE.JS] População somada dos anos 2018, 2019, 2020: ${totalPopulation}\n`;
+  return `\n\n[NODE.JS] População somada dos anos 2018, 2019, 2020: ${totalPopulation}\n`;
 };
 
 module.exports = { sumPopulationByNode };

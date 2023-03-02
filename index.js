@@ -4,7 +4,7 @@ const monitor = require('pg-monitor');
 
 const { fetchData } = require('./service/fetchData');
 const { sumPopulationByNode } = require('./service/sumPopulationByNode');
-const { sumPopulationBySQL } = require('./service/sumPopulationBYSql');
+const { sumPopulationBySQL } = require('./service/sumPopulationBySql');
 
 
 // Call start
@@ -65,6 +65,8 @@ const { sumPopulationBySQL } = require('./service/sumPopulationBYSql');
 
     try {
         await migrationUp();
+
+        // fazendo o data fetching da api
         const data = await fetchData();
 
         //exemplo de insert
@@ -72,6 +74,7 @@ const { sumPopulationBySQL } = require('./service/sumPopulationBYSql');
             doc_record: { 'a': 'b' },
         })
 
+        // inserindo os dados da api no banco de dados
         data.forEach(async element => {
             await db[DATABASE_SCHEMA].api_data.insert({
                 doc_record:  element,
