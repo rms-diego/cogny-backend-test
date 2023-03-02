@@ -4,6 +4,7 @@ const monitor = require('pg-monitor');
 
 const { fetchData } = require('./service/fetchData');
 const { sumPopulationByNode } = require('./service/sumPopulationByNode');
+const { sumPopulationBySQL } = require('./service/sumPopulationBYSql');
 
 
 // Call start
@@ -89,6 +90,9 @@ const { sumPopulationByNode } = require('./service/sumPopulationByNode');
 
         const totalSumPopulationByNodejs = await sumPopulationByNode(db);
         console.log(totalSumPopulationByNodejs);
+
+        const totalSumPopulationBySQL = await sumPopulationBySQL(db);
+        console.log(totalSumPopulationBySQL);
 
         // limpando o banco ao final do script
         await db[DATABASE_SCHEMA].api_data.destroy({});
