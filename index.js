@@ -3,6 +3,7 @@ const massive = require('massive');
 const monitor = require('pg-monitor');
 
 const { fetchData } = require('./service/fetchData');
+const { sumPopulation } = require('./service/sumPopulation');
 
 
 // Call start
@@ -63,7 +64,7 @@ const { fetchData } = require('./service/fetchData');
 
     try {
         await migrationUp();
-        const data = await fetchData()
+        const data = await fetchData();
 
         //exemplo de insert
         const result1 = await db[DATABASE_SCHEMA].api_data.insert({
@@ -72,7 +73,7 @@ const { fetchData } = require('./service/fetchData');
 
         const dataInserted = await db[DATABASE_SCHEMA].api_data.insert({
             doc_record: { data },
-        })
+        });
 
         console.log('result1 >>>', result1);
         console.log('dataInserted >>>', dataInserted);
@@ -83,8 +84,12 @@ const { fetchData } = require('./service/fetchData');
         });
         console.log('result2 >>>', result2);
 
+        const totalSumPopulationByNodejs = await sumPopulation(db);
+        console.log(totalSumPopulationByNodejs);
+
         // limpando o banco ao final do script
-        await db[DATABASE_SCHEMA].api_data.destroy({})
+        await db[DATABASE_SCHEMA].api_data.destroy({});
+        console.log("Limpando tabela");
 
     } catch (e) {
         console.log(e.message)
