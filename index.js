@@ -3,7 +3,7 @@ const massive = require('massive');
 const monitor = require('pg-monitor');
 
 const { fetchData } = require('./service/fetchData');
-const { sumPopulation } = require('./service/sumPopulation');
+const { sumPopulationByNode } = require('./service/sumPopulationByNode');
 
 
 // Call start
@@ -71,12 +71,12 @@ const { sumPopulation } = require('./service/sumPopulation');
             doc_record: { 'a': 'b' },
         })
 
-        const dataInserted = await db[DATABASE_SCHEMA].api_data.insert({
+        await db[DATABASE_SCHEMA].api_data.insert({
             doc_record: { data },
         });
 
+        console.log('Data inserido na tabela');
         console.log('result1 >>>', result1);
-        console.log('dataInserted >>>', dataInserted);
 
         //exemplo select
         const result2 = await db[DATABASE_SCHEMA].api_data.find({
@@ -84,7 +84,7 @@ const { sumPopulation } = require('./service/sumPopulation');
         });
         console.log('result2 >>>', result2);
 
-        const totalSumPopulationByNodejs = await sumPopulation(db);
+        const totalSumPopulationByNodejs = await sumPopulationByNode(db);
         console.log(totalSumPopulationByNodejs);
 
         // limpando o banco ao final do script

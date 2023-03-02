@@ -1,6 +1,6 @@
 const { DATABASE_SCHEMA } = process.env;
 
-const sumPopulation = async (dbClient) => {
+const sumPopulationByNode = async (dbClient) => {
   const data = await dbClient[DATABASE_SCHEMA].api_data.find({
     is_active: true,
   });
@@ -28,16 +28,4 @@ const sumPopulation = async (dbClient) => {
   return `\n[NODE.JS] População somada dos anos 2018, 2019, 2020: ${totalPopulation}\n`
 };
 
-module.exports = { sumPopulation };
-
-
-/*
-  2020
-  2019
-  2018
-  2017
-  2016
-  2015
-  2014
-  2013
-*/
+module.exports = { sumPopulationByNode };
