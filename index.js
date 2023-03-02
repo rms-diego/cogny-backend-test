@@ -71,9 +71,12 @@ const { sumPopulationByNode } = require('./service/sumPopulationByNode');
             doc_record: { 'a': 'b' },
         })
 
-        await db[DATABASE_SCHEMA].api_data.insert({
-            doc_record: { data },
+        data.forEach(async element => {
+            await db[DATABASE_SCHEMA].api_data.insert({
+                doc_record:  element,
+            });
         });
+
 
         console.log('Data inserido na tabela');
         console.log('result1 >>>', result1);
